@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skylooperr Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Alumni Sans SC', sans-serif;
+    }
+    html, body {
+      scroll-behavior: smooth;
+      background: #111;
+      color: white;
+      overflow-x: hidden;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.light-mode {
+      background: #fff;
+      color: #000;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #000;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #333;
+    }
+    body.light-mode header {
+      background: #f0f0f0;
+      color: #000;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #black;
+    }
+
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: #fff;
+      position: relative;
+    }
+    body.light-mode nav a {
+      color: #000;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #0ff;
+      transition: 0.3s ease;
+    }
+    nav a:hover::after { width: 100%; }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+      margin-left: 2rem;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-switch label {
+      position: absolute;
+      cursor: pointer;
+      background-color: #ccc;
+      border-radius: 26px;
+      width: 100%;
+      height: 100%;
+      transition: background-color 0.3s ease;
+    }
+    .toggle-switch label::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: transform 0.3s ease;
+      border-radius: 50%;
+    }
+    .toggle-switch input:checked + label {
+      background-color: #0ff;
+    }
+    .toggle-switch input:checked + label::before {
+      transform: translateX(24px);
+    }
+
+    .parallax-hero {
+      background-image: url('https://wallpaperaccess.com/full/2137207.jpg');
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .parallax-hero h1 {
+      font-size: 3rem;
+      color: #0ff;
+      animation: typing 4s steps(40, end), blink .75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #0ff;
+      width: 0;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .section {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding-top: 3rem;
+    }
+    .showcase-card {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      transform: translateY(100px);
+      opacity: 0;
+      animation: fadeUp 1s forwards;
+    }
+    body.light-mode .showcase-card {
+      background: #eee;
+      color: #000;
+    }
+    .showcase-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .showcase-card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+    .showcase-card p {
+      padding: 0 1rem 1rem;
+      font-style: italic;
+    }
+    @keyframes fadeUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .testimonials-container {
+      background: #000;
+      padding: 5rem 2rem;
+      text-align: center;
+      color: white;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding-top: 3rem;
+    }
+    .testimonial-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+      transform: scale(0.95);
+      transition: all 0.3s ease;
+      animation: popIn 1s ease forwards;
+    }
+    .testimonial-box:hover {
+      transform: scale(1);
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .testimonial-box img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0ff;
+    }
+    .testimonial-box h4 {
+      margin-top: 1rem;
+      color: #0ff;
+    }
+    .testimonial-box p {
+      margin-top: 0.5rem;
+    }
+
+    .graph-section {
+      background: #000;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .graph-section img {
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.4);
+      animation: fadeUp 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Skylooperr</div>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#showcase">Work</a>
+    <a href="#testimonials">Testimonials</a>
+    <div class="toggle-switch">
+      <input type="checkbox" id="theme-toggle">
+      <label for="theme-toggle"></label>
+    </div>
+  </nav>
+</header>
+
+<section id="hero" class="parallax-hero">
+  <h1>Skylooperr Studio - Crafting Digital Experiences</h1>
+</section>
+
+<section id="showcase" class="section">
+  <h2>Our Work Showcase</h2>
+  <div class="showcase-grid">
+    <div class="showcase-card">
+      <img src="https://colorlib.com/wp/wp-content/uploads/sites/2/travelix-free-template.jpg" alt="Client A">
+      <h3>Travelix</h3>
+      <p>"A perfect blend of elegance and performance for tourism."</p>
+    </div>
+    <div class="showcase-card">
+      <img src="https://images.template.net/wp-content/uploads/2014/06/30093520/iLevel.jpg" alt="Client B">
+      <h3>iLevel</h3>
+      <p>"Minimalist layout with maximum impact."</p>
+    </div>
+    <div class="showcase-card">
+      <img src="https://th.bing.com/th/id/OIP.UZIKVDQ5zIei9Iz3igQaQgHaF1?o=7rm=3&rs=1&pid=ImgDetMain" alt="Client C">
+      <h3>VisionVault</h3>
+      <p>"A digital portfolio that truly speaks innovation."</p>
+    </div>
+    <div class="showcase-card">
+      <img src="https://uicookies.com/wp-content/uploads/2019/03/sensive-free-html-website-templates.jpg" alt="Client D">
+      <h3>Sensive</h3>
+      <p>"Clean, bold, and built to convert."</p>
+    </div>
+  </div>
+</section>
+
+<section class="graph-section">
+  <h2>Performance Insights</h2>
+  <img src="https://assets-global.website-files.com/5a1eb87c9afe1000014a4c7d/64133251b009197c16f461ee_FwuFxnIYpfPZLzOnZua0elVoCcrYs6U1B_nWyzQnETHTJi8Q4xhXguajTKoEb2GEaRlBI7cv9MWGtt9fXgIpsz6K8CidHFcwv7ZxbbSf6gxF5a-kWdckn6kn9ee-KwPn9K4zPdrDkDVs5NbIPRUFkw.png" alt="Analytics Graph">
+</section>
+
+<section id="testimonials" class="testimonials-container">
+  <h2>What Our Clients Say</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-box">
+      <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Daniel">
+      <h4>Daniel M.</h4>
+      <p>"Skylooperr brought our dream website to life with finesse and speed."</p>
+    </div>
+    <div class="testimonial-box">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya">
+      <h4>Priya S.</h4>
+      <p>"A professional team that listens, understands, and delivers perfectly!"</p>
+    </div>
+    <div class="testimonial-box">
+      <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Alex">
+      <h4>Alex R.</h4>
+      <p>"From UI to UX, they handled everything like seasoned pros."</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('change', () => {
+    document.body.classList.toggle('light-mode');
+  });
+</script>
+
+</body>
+</html>
